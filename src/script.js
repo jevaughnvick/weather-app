@@ -1,27 +1,36 @@
 const App = (() => {
 
-    let weatherInfo;
-    fetch(`http://api.weatherapi.com/v1/current.json?key=74f222b03ee0465d9be184210232909&q=${location}`).then(response => response.json()).then(json => weatherInfo = json);
+    const getData = async (location) => {
 
-    // console.log(weatherInfo)
+        const URL = `http://api.weatherapi.com/v1/current.json?key=74f222b03ee0465d9be184210232909&q=${location}`;
 
-    return { weatherInfo, };
+        try{
+            const response = await fetch(URL, {mode: "cors"});
+            const data = await response.json();
+            return data;
+        }catch(error){
+            alert(error);
+            return null;
+        }
+    };
+
+    return { getData };
 })();
-
 
 
 const UIController = (() => {
 
-    const searchBtn = document.querySelector(".search");
+    const searchBtn = document.getElementById("search-btn");
 
-    const getData = () => {
+    const input = document.querySelector("#search");
 
-        const input = document.querySelector("input");
-
-        App.initData(input.value);
+    const search = async () => {
+        if(!input.value) return;
+        const data = await App.getData(input.value);
+        console.log(data);
     };
 
-    searchBtn.addEventListener("click", getData);
+    searchBtn.addEventListener("click", search);
 })();
 
 
