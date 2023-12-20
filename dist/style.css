@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+html,body{
+    min-height: 100vh;
+}
+body{
+    background-image: url(../assets/cloudy.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+.navbar{
+    /* border: 1px solid red; */
+}
+.navbar-container{
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* border: 1px solid red; */
+}
+.navbar-container > *{
+    border: 1px solid red;
+}
+.logo-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo{
+    font-family: "Poppins", Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: white;
+}
+.search-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+input{
+    height: 22px;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 75%;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+input::placeholder{
+    color: rgba(255, 255, 255, 0.302);
+}
+.search{
+    border-radius: 5px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.temp-toggle-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.temp-toggle-btn{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100px;
+    height: 32px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+.bold-text{
+    font-weight: bold;
+}
+button:hover{
+    text-decoration: underline;
+}
+.display-grid{
+    /* border: 1px solid red; */
+    flex: 1;
+    display: flex;
+}
+.grid-container{
+    margin: 0 auto;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: 20px;
+}
+.grid-container > *{
+    /* border: 1px solid red; */
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+.one, .four, .five, .thirteen, .eight, .nine, .twelve, .thirteen{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+.country{
+    font-size: 30px;
+}
+.region{
+    font-size: 25px;
+    font-family: "Poppins", Helvetica, sans-serif;
+    font-weight: bold;
+}
+.time{
+    display: flex;
+}
+.numbers{
+    font-size: 50px;
+    font-family: "Poppins", Helvetica, sans-serif;
+    font-weight: bold;
+    line-height: 60px;
+}
+.meridiem{
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+.date{
+    font-size: 30px;
+}
+.temp-label{
+    font-size: 30px;
+}
+.temp{
+    font-size: 60px;
+    font-family: "Poppins", Helvetica, sans-serif;
+    font-weight: bold;
+    line-height: 60px;
+}
+.feels-like{
+    font-size: 30px;
+}
+.humidity{
+    font-size: 30px;
+}
+.wind-speed-label{
+    font-size: 30px;
+}
+.wind-speed{
+    font-size: 60px;
+    font-family: "Poppins", Helvetica, sans-serif;
+    font-weight: bold;
+    line-height: 60px;
+}
+.wind-unit{
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 22px;
+}
+.wind-wrap{
+    display: flex;
+}
+.wind-direction-label{
+    font-size: 30px;
+}
+.wind-direction{
+    font-size: 60px;
+    font-family: "Poppins", Helvetica, sans-serif;
+    font-weight: bold;
+    line-height: 60px;
+}
+.six{
+    grid-column: 2/4;
+    grid-row: 2/4;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+.condition{
+    font-size: 80px;
+    font-family: "Poppins", Helvetica, sans-serif;
+    font-weight: bold;
+    line-height: 60px;
+    text-shadow: -5px 5px 2px black;
+}
+footer{
+    /* border: 1px solid red; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    margin-top: auto;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    backdrop-filter: blur(5px);
+}
+ion-icon{
+    font-size: 30px;
+    color: white;
+}
+.github{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+.github a{
+    color: black;
+}
+.github ion-icon{
+    margin-left: 5px;
+    font-size: 30px;
+    transition: .2s;
+}
+.github ion-icon:hover{
+    transform: rotate(360deg) scale(1.2);
+}
