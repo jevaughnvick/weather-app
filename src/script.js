@@ -1,3 +1,5 @@
+import { format, parseISO } from "date-fns";
+
 const App = (() => {
 
     const getData = async (location) => {
@@ -27,7 +29,7 @@ const UIController = (() => {
     const search = async () => {
         if(!input.value) return;
         const data = await App.getData(input.value);
-        console.log(data);
+        UpdateScreen.showState(data);
     };
 
     searchBtn.addEventListener("click", search);
@@ -37,11 +39,10 @@ const UIController = (() => {
 
 const UpdateScreen = (() => {
 
+    const country = document.querySelector(".country");
     const region = document.querySelector(".region");
-    const time = {
-        digits: document.querySelector(".numbers"),
-        meridiem: document.querySelector(".meridiem")
-    };
+    const time = document.querySelector(".numbers")
+
     // install date-fns
     const date = document.querySelector(".date");
     const temp = document.querySelector(".temp");
@@ -51,14 +52,75 @@ const UpdateScreen = (() => {
     const humidity = document.querySelector(".humidity");
     const windDirection = document.querySelector(".wind-direction");
 
-    // console.log(App.weatherInfo);
+    const showState = (data) => {
 
-    const displayCountry = () => {
-
-        const country = document.querySelector(".country");
-        // country.textContent = App.weatherInfo.location.country;
-        // console.log(App.weatherInfo.location)
+        displayCountry(data);
+        displayRegion(data);
+        displayTemp(data);
+        displayFeelsLike(data);
+        displayHumidity(data);
+        displayWindDirection(data);
+        displayWindSpeed(data);
+        displayTime(data);
+        displayDate(data);
     };
 
-    // displayCountry();
+    const setBackground = async (data) => {};
+
+    const displayTime = async (data) => {
+
+        const timeFromApi = await data.location.localtime.slice(11, 15);
+        time.textContent = timeFromApi;
+    };
+
+    const displayDate = async (data) => {
+
+        const dateFromApi = await data.location.localtime.slice(0, 10);
+        const formattedDate = format(parseISO(dateFromApi), "MMMM dd, yyyy");
+        date.textContent = formattedDate;
+    };
+
+    const displayCountry = async (data) => {
+
+        const countryFromApi = await data.location.country;
+        country.textContent = countryFromApi;
+    };
+
+    const displayRegion = async (data) => {
+
+        const regionFromApi = await data.location.region;
+        region.textContent = regionFromApi;
+    };
+
+    const displayTemp = async (data) => {
+
+        const tempFromApi = await data.current.temp_c;
+        temp.textContent = `${tempFromApi}°C`;
+    };
+
+    const displayFeelsLike = async (data) => {
+
+        const feelsLikeFromApi = await data.current.feelslike_c;
+        feelsLike.textContent = `Feels Like: ${feelsLikeFromApi}°C`;
+    };
+
+    const displayHumidity = async (data) => {
+
+        const humidityFromApi = await data.current.humidity;
+        humidity.textContent = `Humidity: ${humidityFromApi}`;
+    };
+
+    const displayWindDirection = async (data) => {
+
+        const windDirectionFromApi = await data.current.wind_dir;
+        windDirection.textContent = windDirectionFromApi;
+    };
+
+    const displayWindSpeed = async (data) => {
+
+        const windSpeedFromApi = await data.current.wind_mph;
+        windSpeed.textContent = windSpeedFromApi;
+    };
+
+    return { showState };
 })();
