@@ -1,16 +1,17 @@
-import { format, parseISO } from "date-fns";
-
 const App = (() => {
 
     const getData = async (location) => {
 
-        const URL = `http://api.weatherapi.com/v1/current.json?key=74f222b03ee0465d9be184210232909&q=${location}`;
+        // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/jamaica?unitGroup=metric&key=9EMZXCGE9XYHMADB62C8VL578&contentType=json
+
+        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/est/services/timeline/${location}?unitGroup=metric&key=9EMZXCGE9XYHMADB62C8VL578&contentType=json`;
 
         try{
-            const response = await fetch(URL, {mode: "cors"});
-            const data = await response.json();
-            return data;
+
+            const response = await fetch(url, {mode: "cors"});
+            return await response.json();
         }catch(error){
+
             alert(error);
             return null;
         }
@@ -28,8 +29,10 @@ const UIController = (() => {
 
     const search = async () => {
         if(!input.value) return;
+
         const data = await App.getData(input.value);
-        UpdateScreen.showState(data);
+        console.log(data);
+        // UpdateScreen.showState(data);
     };
 
     searchBtn.addEventListener("click", search);
