@@ -2,9 +2,7 @@ const App = (() => {
 
     const getData = async (location) => {
 
-        // https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/jamaica?unitGroup=metric&key=9EMZXCGE9XYHMADB62C8VL578&contentType=json
-
-        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/est/services/timeline/${location}?unitGroup=metric&key=9EMZXCGE9XYHMADB62C8VL578&contentType=json`;
+        const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=9EMZXCGE9XYHMADB62C8VL578&contentType=json`;
 
         try{
 
@@ -24,20 +22,23 @@ const App = (() => {
 const UIController = (() => {
 
     const searchBtn = document.getElementById("search-btn");
-
     const input = document.querySelector("#search");
+
+    input.focus();
 
     const search = async () => {
         if(!input.value) return;
 
         const data = await App.getData(input.value);
-        console.log(data);
-        // UpdateScreen.showState(data);
+        UpdateScreen.showState(data);
     };
 
     searchBtn.addEventListener("click", search);
-})();
+    document.addEventListener("keydown", (e) => {
 
+        if(e.key === "Enter") search();
+    });
+})();
 
 
 const UpdateScreen = (() => {
@@ -57,15 +58,10 @@ const UpdateScreen = (() => {
 
     const showState = (data) => {
 
-        displayCountry(data);
-        displayRegion(data);
-        displayTemp(data);
-        displayFeelsLike(data);
-        displayHumidity(data);
-        displayWindDirection(data);
-        displayWindSpeed(data);
-        displayTime(data);
-        displayDate(data);
+        displayArea(data);
+        // displayTemp(data);
+        // displayHumidity(data);
+        // displayWindSpeed(data);
     };
 
     const setBackground = async (data) => {};
@@ -83,21 +79,27 @@ const UpdateScreen = (() => {
         date.textContent = formattedDate;
     };
 
-    const displayCountry = async (data) => {
+    const displayArea = data => {
 
-        const countryFromApi = await data.location.country;
-        country.textContent = countryFromApi;
-    };
-
-    const displayRegion = async (data) => {
-
-        const regionFromApi = await data.location.region;
-        region.textContent = regionFromApi;
+        const address = data.resolvedAddress;
+        if(address.includes(",")){
+            const array = address.split(", ");
+            if(array.length > 2){
+                region.textContent = array[0];
+                country.textContent = array[array.length - 1];
+            }else{
+                region.textContent = array[0];
+                country.textContent = array[1];
+            }
+        }else{
+            country.textContent = address;
+            region.textContent = "";
+        }
     };
 
     const displayTemp = async (data) => {
 
-        const tempFromApi = await data.current.temp_c;
+        const tempFromApi = await data.currentConditions.temp;
         temp.textContent = `${tempFromApi}°C`;
     };
 
